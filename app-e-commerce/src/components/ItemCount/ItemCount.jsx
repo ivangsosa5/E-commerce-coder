@@ -8,7 +8,7 @@ const ItemCount = ({stock, inicial, onAdd}) => {
 
     const increment = ()=>{
 
-        if(contador < stock ){
+        if(contador < stock ){  
             setContador(contador+1)
         }
     }

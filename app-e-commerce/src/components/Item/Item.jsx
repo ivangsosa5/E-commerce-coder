@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
-import guitarra1 from '../../assets/guitarra1.jpg'
-import midi1 from '../../assets/midi1.jpg'
+// import guitarra1 from '../../assets/guitarra1.jpg'
+// import midi1 from '../../assets/midi1.jpg'
+
+
 
 
 const Item = ({producto}) => {
   
   const {id, name, description, price, pictureUrl} = producto;
 
+  
   return (
     <>
         <Row xs={2} md={1} className="g-4">
@@ -31,6 +34,7 @@ const Item = ({producto}) => {
                 
               ))}
           </Row>
+          
 
 
     </>
