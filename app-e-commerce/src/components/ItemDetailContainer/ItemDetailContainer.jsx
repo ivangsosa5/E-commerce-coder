@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { getProductById } from '../../asyncMock'
 import { ItemDetail } from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
+import {firebaseApp} from '../../fireBase/config'
+import {doc, getDoc, getFirestore} from 'firebase/firestore'
 
 const ItemDetailContainer = () => {
 
@@ -11,13 +12,17 @@ const ItemDetailContainer = () => {
     const [producto, setProducto] = useState([])
 
     useEffect(()=>{
-        getProductById(itemId).then(datos => {
-          setProducto(datos);
+        const db = getFirestore(firebaseApp);
+        const documentRef = doc(db, 'items', itemId);
+
+        getDoc(documentRef).then((snapshot)=>{
+
+          setProducto({...snapshot.data(), id:snapshot.id})
         })
         .catch(error =>{
           console.log(error)
         })
-      }, [])
+      }, [itemId])
 
   return (
     <div>

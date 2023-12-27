@@ -6,10 +6,12 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { cartContext } from '../../context/cartContext';
+import { Link } from 'react-router-dom';
 
 
 
-  function CartItem ({id, name, price, quantity}){
+
+  function CartItem ({id, name, price, quantity, onDelete}){
     return (
       <li>
           <div>
@@ -22,7 +24,8 @@ import { cartContext } from '../../context/cartContext';
                       <Card.Body>
                         <Card.Title>{name}</Card.Title> 
                         <Card.Text>Precio:{price}</Card.Text>
-                        <Card.Text>{quantity}</Card.Text>
+                        <Card.Text>Cantidad:{quantity}</Card.Text>
+                        <Button variant='dark' onClick={()=>onDelete(id, quantity)}>Eliminar</Button>
                       </Card.Body>
                     </Card>
                     <br></br>
@@ -38,14 +41,12 @@ import { cartContext } from '../../context/cartContext';
 
   const Cart = ({children})=>{
 
-    const {cartList, removeItem, clearItems} = useContext(cartContext)
+    const {cartList, removeItem, cartCount} = useContext(cartContext)   
 
-    console.log(cartList)
-
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);//offcanvas
   
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);//offcanvas
+    const handleShow = () => setShow(true);//offcanvas
   
     return (
       <>
@@ -58,15 +59,15 @@ import { cartContext } from '../../context/cartContext';
             </Offcanvas.Header>
             <Offcanvas.Body>
               <ul>
-                {cartList.map(product => (
+                {cartList.map(product =>
                   <CartItem
                     key={product.id}
                     {...product}
+                    onDelete={()=>removeItem({id:product.id, quantity:product.quantity})}
                   />
-                ))}
+                )}
               </ul>
-              
-              
+              <Button as={Link} to={'/checkOut'} onClick={handleClose} variant='dark' hidden={cartCount<1?'none':''}>Finalizar compra</Button>           
             </Offcanvas.Body>
           </Offcanvas>
       </>

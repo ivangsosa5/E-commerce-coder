@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { CartWidget } from '../cartWidget/CartWidget';
 import { Link } from 'react-router-dom';
+import { cartContext } from '../../context/cartContext';
+
+
 
 const NavBar = () => {
+
+    const {cartCount} = useContext(cartContext)
   return (
     <Container>
 
@@ -19,7 +24,7 @@ const NavBar = () => {
                 </Navbar.Brand>
                 <Container>
                 <div className='d-flex justify-content-end'>
-                    <CartWidget counter= '0'></CartWidget>
+                    <CartWidget counter= {cartCount}></CartWidget>
                 </div>
                 </Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
