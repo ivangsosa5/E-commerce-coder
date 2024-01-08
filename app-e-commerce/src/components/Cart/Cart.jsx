@@ -41,7 +41,7 @@ import { Link } from 'react-router-dom';
 
   const Cart = ({children})=>{
 
-    const {cartList, removeItem, cartCount} = useContext(cartContext)   
+    const {cartList, removeItem, cartCount, clearItems} = useContext(cartContext)   
 
     const [show, setShow] = useState(false);//offcanvas
   
@@ -67,6 +67,9 @@ import { Link } from 'react-router-dom';
                   />
                 )}
               </ul>
+              <Button variant='dark' onClick={()=>clearItems()} hidden={cartCount<1}>Vaciar Carrito</Button>
+              <br/>
+              <br/>
               <Button as={Link} to={'/checkOut'} onClick={handleClose} variant='dark' hidden={cartCount<1?'none':''}>Finalizar compra</Button>           
             </Offcanvas.Body>
           </Offcanvas>

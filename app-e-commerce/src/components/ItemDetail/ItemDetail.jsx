@@ -12,7 +12,7 @@ const ItemDetail = ({producto}) => {
 
   return (
     <div>
-      
+        
         <Card className="text-center" style={{ width: '30rem' }}>
         <Card.Header></Card.Header>
         <Card.Img variant="top" src={producto.pictureUrl} />

@@ -39,6 +39,7 @@ export function CartProvider({children}){
     const clearItems = ()=>{
     
             setCartList([])
+            setCartCount(0)
         }
         
     return (
