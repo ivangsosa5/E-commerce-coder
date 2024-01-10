@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
   function CartItem ({id, name, price, quantity, onDelete}){
     return (
-      <li>
+      
           <div>
             <Row xs={2} md={1} className="g-4">
                 {Array.from({ length: 1 }).map((_, idx) => (
@@ -34,14 +34,14 @@ import { Link } from 'react-router-dom';
                 ))}
             </Row>
           </div>
-      </li>
+     
 
     )
   }
 
   const Cart = ({children})=>{
 
-    const {cartList, removeItem, cartCount, clearItems} = useContext(cartContext)   
+    const {cartList, removeItem, cartCount, clearItems, subTotal} = useContext(cartContext)   
 
     const [show, setShow] = useState(false);//offcanvas
   
@@ -58,19 +58,22 @@ import { Link } from 'react-router-dom';
               <Offcanvas.Title>Carrito</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <ul>
+              
                 {cartList.map(product =>
                   <CartItem
                     key={product.id}
                     {...product}
-                    onDelete={()=>removeItem({id:product.id, quantity:product.quantity})}
+                    onDelete={()=>removeItem({id:product.id, quantity:product.quantity, price:product.price})}
                   />
                 )}
-              </ul>
+              <h4 hidden={cartCount <1?'':'none'}>Aún no agregaste nada al carrito</h4>
+              <br />
+              <h4 hidden={cartCount <1?'none':''}>Total: ${subTotal}</h4>
+              <br />
               <Button variant='dark' onClick={()=>clearItems()} hidden={cartCount<1}>Vaciar Carrito</Button>
               <br/>
               <br/>
-              <Button as={Link} to={'/checkOut'} onClick={handleClose} variant='dark' hidden={cartCount<1?'none':''}>Finalizar compra</Button>           
+              <Button as={Link} to={'/checkOut'} onClick={handleClose} variant='dark' hidden={cartCount<1?'none':''}>Ver Carrito</Button>           
             </Offcanvas.Body>
           </Offcanvas>
       </>

@@ -4,11 +4,14 @@ import Card from 'react-bootstrap/Card';
 import { ItemCount } from '../ItemCount/ItemCount';
 import { useContext } from 'react';
 import { cartContext } from '../../context/cartContext';
+import { useNavigate  } from 'react-router-dom';
 
 
 const ItemDetail = ({producto}) => {
 
   const {addItem} = useContext(cartContext)
+
+  let navigate = useNavigate()
 
   return (
     <div>
@@ -31,7 +34,8 @@ const ItemDetail = ({producto}) => {
           <ItemCount inicial = {1} stock = {10} onAdd = {(contador)=> addItem({id:producto.id, name:producto.name, price:producto.price, quantity: contador}) }/>
         </Card.Footer>
       </Card>
-    
+      <br />
+      <Button onClick= {()=>{navigate(-1)}} variant='dark'>Atras</Button>
     </div>
   )
 }
